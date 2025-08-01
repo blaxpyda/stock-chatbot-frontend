@@ -6,7 +6,7 @@ import os
 
 load_dotenv()
 
-BACKEND_URL = os.getenv("BACKEND_URL")
+BACKEND_URL = os.getenv("BACKEND_URL", "http://backend:80")
 
 st.set_page_config(page_title="Stock Analyser", page_icon="🤖", layout="wide")
 
@@ -19,7 +19,7 @@ if 'messages' not in st.session_state:
 def send_message(message):
     try:
         response = requests.post(
-            BACKEND_URL,
+            f"{BACKEND_URL}/agent/",
             json={'input_data': message},
             timeout=100
         )
